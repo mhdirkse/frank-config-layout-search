@@ -1,4 +1,5 @@
-import PriorityQueue, {Comparator, Options} from "./PriorityQueue";
+import {Comparator, Options} from "ts-priority-queue/src/PriorityQueue";
+import PriorityQueue from "ts-priority-queue/src/PriorityQueue";
 
 describe('Priority queue tests', () => {
 	function doComp(a: number, b: number) {
