@@ -1,3 +1,5 @@
+// Copied from dependency ts-priority-queue version 0.1.1.
+// Website https://github.com/RonPenton/ts-priority-queue
 import BinaryHeapStrategy from './BinaryHeapStrategy';
 
 export type Comparator<T> = (a: T, b: T) => number;
