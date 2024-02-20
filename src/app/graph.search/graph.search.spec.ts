@@ -37,6 +37,11 @@ describe('Test graph search', () => {
 			}
 			return result;
 		}
+
+		// In this trivial example, speed is not important so we reuse getChildren().
+		public isSolution(): boolean {
+			return this.getChildren().length == 0;
+		}
 	}
 
 	it('Simple search', () => {
@@ -50,19 +55,11 @@ describe('Test graph search', () => {
 		var S: GraphSearch<TestNode> = new GraphSearch(root);
 		expectLetter(S, 'E');
 		S.expand();
-		expectLetter(S, 'A');
-		S.expand();
 		expectLetter(S, 'F');
 		S.expand();
 		expectLetter(S, 'G');
 		S.expand();
-		expectLetter(S, 'B');
-		S.expand();
-		expectLetter(S, 'C');
-		S.expand();
 		expectLetter(S, 'H');
-		S.expand();
-		expectLetter(S, 'I');
 		expect(S.isDone()).toBeFalse;
 		S.expand();
 		expect(S.isDone()).toBeTrue;

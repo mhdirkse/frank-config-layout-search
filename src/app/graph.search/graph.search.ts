@@ -3,6 +3,9 @@ import PriorityQueue, {Comparator, Options} from "../priority.queue/PriorityQueu
 export interface Node<T> {
 	getScore(): number;
 	getChildren(): Node<T>[];
+	// Should return true if there are no children and vice versa.
+	// This method should be faster than calculating the children.
+	isSolution(): boolean;
 }
 
 // Not thread safe!
@@ -17,7 +20,15 @@ export class GraphSearch<T> {
 		let opts: Options<Node<T>> = {comparator: comparator};
 		this.queue = new PriorityQueue(opts);
 		this.solutions = new PriorityQueue(opts);
-		this.queue.queue(root);
+		this.putInQueueOrSolutions(root);
+	}
+
+	private putInQueueOrSolutions(node: Node<T>) {
+		if(node.isSolution()) {
+			this.solutions.queue(node);
+		} else {
+			this.queue.queue(node);
+		}
 	}
 
 	public isDone(): boolean {
@@ -32,11 +43,7 @@ export class GraphSearch<T> {
 		if(! this.isDone()) {
 			var current: Node<T> = this.queue.dequeue();
 			var children: Node<T>[] = current.getChildren();
-			if(children.length == 0) {
-				this.solutions.queue(current);
-			} else {
-				children.forEach(c => this.queue.queue(c));
-			}
+			children.forEach(c => this.putInQueueOrSolutions(c));
 		}
 	}
 
